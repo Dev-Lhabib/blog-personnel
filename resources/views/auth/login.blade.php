@@ -1,56 +1,61 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'Mon Blog Tech')</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gray-50 text-gray-800 min-h-screen flex flex-col">
+@extends('layouts.app')
 
-    <header class="bg-white border-b border-gray-200 shadow-sm sticky top-0 z-10">
-        <div class="max-w-5xl mx-auto px-4 py-4 flex items-center justify-between">
-            <a href="{{ route('home') }}" class="text-xl font-bold text-indigo-600 hover:text-indigo-700">
-                Mon Blog Tech
-            </a>
-            <nav class="flex items-center gap-4">
-                <a href="{{ route('articles.index') }}" class="text-sm text-gray-600 hover:text-indigo-600">
-                    Articles
-                </a>
-                @auth
-                    <a href="{{ route('dashboard.index') }}" class="text-sm text-gray-600 hover:text-indigo-600">
-                        Tableau de bord
-                    </a>
-                    <form method="POST" action="{{ route('logout') }}">
-                        @csrf
-                        <button type="submit" class="text-sm bg-indigo-600 text-white px-4 py-1.5 rounded hover:bg-indigo-700 transition">
-                            Déconnexion
-                        </button>
-                    </form>
-                @else
-                    <a href="{{ route('login') }}" class="text-sm bg-indigo-600 text-white px-4 py-1.5 rounded hover:bg-indigo-700 transition">
-                        Connexion
-                    </a>
-                @endauth
-            </nav>
+@section('title', 'Connexion')
+
+@section('content')
+    <div class="max-w-md mx-auto mt-12">
+        <div class="bg-white rounded-lg border border-gray-200 shadow-sm p-8">
+            <h1 class="text-2xl font-bold text-gray-900 mb-8 text-center">Connexion</h1>
+
+            <form method="POST" action="{{ route('login.post') }}">
+                @csrf
+
+                <div class="mb-5">
+                    <label for="email" class="block text-sm font-medium text-gray-700 mb-1">
+                        Adresse e-mail
+                    </label>
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        value="{{ old('email') }}"
+                        autocomplete="email"
+                        autofocus
+                        class="w-full border rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-300
+                            {{ $errors->has('email') ? 'border-red-400 bg-red-50' : 'border-gray-300' }}"
+                        required
+                    >
+                    @error('email')
+                        <p class="mt-1.5 text-xs text-red-600">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <div class="mb-5">
+                    <label for="password" class="block text-sm font-medium text-gray-700 mb-1">
+                        Mot de passe
+                    </label>
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        autocomplete="current-password"
+                        class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-300"
+                        required
+                    >
+                </div>
+
+                <div class="mb-6 flex items-center gap-2">
+                    <input type="checkbox" id="remember" name="remember" class="rounded border-gray-300 text-indigo-600">
+                    <label for="remember" class="text-sm text-gray-600">Se souvenir de moi</label>
+                </div>
+
+                <button
+                    type="submit"
+                    class="w-full bg-indigo-600 text-white py-2.5 rounded-lg font-medium hover:bg-indigo-700 transition"
+                >
+                    Se connecter
+                </button>
+            </form>
         </div>
-    </header>
-
-    <main class="flex-grow max-w-5xl mx-auto px-4 py-8 w-full">
-        @if(session('success'))
-            <div class="mb-6 bg-green-50 border border-green-200 text-green-800 px-4 py-3 rounded-lg">
-                {{ session('success') }}
-            </div>
-        @endif
-
-        @yield('content')
-    </main>
-
-    <footer class="bg-white border-t border-gray-200 mt-auto">
-        <div class="max-w-5xl mx-auto px-4 py-4 text-center text-sm text-gray-500">
-            &copy; {{ date('Y') }} Mon Blog Tech &mdash; Tous droits réservés.
-        </div>
-    </footer>
-
-</body>
-</html>
+    </div>
+@endsection
