@@ -90,9 +90,11 @@
                     </p>
 
                     <div class="flex items-center justify-between mt-auto pt-2 border-t border-gray-100">
-                        <span class="text-xs text-gray-400">
+                        <div class="text-xs text-gray-400">
+                            <span class="font-medium text-gray-600">{{ $article->user->name }}</span>
+                            <span class="mx-1">•</span>
                             {{ $article->published_at->format('d/m/Y') }}
-                        </span>
+                        </div>
                         <a href="{{ route('articles.show', $article) }}" class="text-sm text-indigo-600 hover:text-indigo-700 font-medium">
                             Lire l'article &rarr;
                         </a>
