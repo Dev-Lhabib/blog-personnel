@@ -43,7 +43,7 @@ class Article extends Model
         return $this->status === 'published';
     }
 
-    public function readingTime(): int
+    public function getReadingTimeAttribute(): int
     {
         $wordCount = str_word_count(strip_tags($this->content));
         return max(1, (int) ceil($wordCount / 200));
