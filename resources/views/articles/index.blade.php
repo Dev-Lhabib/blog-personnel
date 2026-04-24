@@ -3,9 +3,21 @@
 @section('title', 'Articles')
 
 @section('content')
+@php
+$categoryColors = [
+    'bg-indigo-100 dark:bg-indigo-900/50 text-indigo-700 dark:text-indigo-300',
+    'bg-purple-100 dark:bg-purple-900/50 text-purple-700 dark:text-purple-300',
+    'bg-blue-100 dark:bg-blue-900/50 text-blue-700 dark:text-blue-300',
+    'bg-green-100 dark:bg-green-900/50 text-green-700 dark:text-green-300',
+    'bg-pink-100 dark:bg-pink-900/50 text-pink-700 dark:text-pink-300',
+    'bg-orange-100 dark:bg-orange-900/50 text-orange-700 dark:text-orange-300',
+    'bg-teal-100 dark:bg-teal-900/50 text-teal-700 dark:text-teal-300',
+    'bg-yellow-100 dark:bg-yellow-900/50 text-yellow-700 dark:text-yellow-300',
+];
+@endphp
     <div class="mb-8">
-        <h1 class="text-3xl font-bold text-gray-900 mb-1">Articles</h1>
-        <p class="text-gray-500">Découvrez mes articles techniques</p>
+        <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-1">Articles</h1>
+        <p class="text-gray-500 dark:text-gray-400">Découvrez mes articles techniques</p>
     </div>
 
     {{-- Recherche --}}
@@ -18,7 +30,7 @@
             name="search"
             value="{{ request('search') }}"
             placeholder="Rechercher un article..."
-            class="flex-grow border border-gray-300 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-300"
+            class="flex-grow border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder-gray-400 dark:placeholder-gray-500 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-300 dark:focus:ring-indigo-600"
         >
         <button type="submit" class="bg-indigo-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-indigo-700 transition">
             Rechercher
@@ -26,7 +38,7 @@
         @if(request('search'))
             <a
                 href="{{ route('articles.index', $activeCategory ? ['category' => $activeCategory] : []) }}"
-                class="border border-gray-300 text-gray-600 px-4 py-2 rounded-lg text-sm hover:bg-gray-100 transition"
+                class="border border-gray-300 dark:border-gray-600 text-gray-600 dark:text-gray-300 px-4 py-2 rounded-lg text-sm hover:bg-gray-100 dark:hover:bg-gray-700 transition"
             >
                 Effacer
             </a>
@@ -40,7 +52,7 @@
             class="px-3 py-1.5 rounded-full text-sm border transition
                 {{ !$activeCategory
                     ? 'bg-indigo-600 text-white border-indigo-600'
-                    : 'bg-white text-gray-600 border-gray-300 hover:border-indigo-400 hover:text-indigo-600' }}"
+                    : 'bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 border-gray-300 dark:border-gray-600 hover:border-indigo-400 hover:text-indigo-600 dark:hover:text-indigo-400' }}"
         >
             Toutes
         </a>
@@ -50,7 +62,7 @@
                 class="px-3 py-1.5 rounded-full text-sm border transition
                     {{ $activeCategory === $category->slug
                         ? 'bg-indigo-600 text-white border-indigo-600'
-                        : 'bg-white text-gray-600 border-gray-300 hover:border-indigo-400 hover:text-indigo-600' }}"
+                        : 'bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 border-gray-300 dark:border-gray-600 hover:border-indigo-400 hover:text-indigo-600 dark:hover:text-indigo-400' }}"
             >
                 {{ $category->name }}
                 <span class="ml-1 opacity-60">({{ $category->articles_count }})</span>
@@ -60,10 +72,10 @@
 
     {{-- Liste --}}
     @if($articles->isEmpty())
-        <div class="text-center py-20 text-gray-400">
+        <div class="text-center py-20 text-gray-400 dark:text-gray-500">
             <p class="text-lg">Aucun article trouvé.</p>
             @if(request('search') || $activeCategory)
-                <a href="{{ route('articles.index') }}" class="mt-2 inline-block text-indigo-500 hover:text-indigo-700 text-sm">
+                <a href="{{ route('articles.index') }}" class="mt-2 inline-block text-indigo-500 hover:text-indigo-700 dark:hover:text-indigo-400 text-sm">
                     Voir tous les articles
                 </a>
             @endif
@@ -71,31 +83,31 @@
     @else
         <div class="grid gap-6 md:grid-cols-2">
             @foreach($articles as $article)
-                <article class="bg-white rounded-lg border border-gray-200 p-6 shadow-sm hover:shadow-md transition flex flex-col">
+                <article class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6 shadow-sm hover:shadow-md dark:hover:shadow-gray-900 transition flex flex-col">
                     <div class="flex items-center gap-2 mb-3">
-                        <span class="text-xs bg-indigo-100 text-indigo-700 px-2 py-0.5 rounded-full font-medium">
+                        <span class="text-xs px-2 py-0.5 rounded-full font-medium {{ $categoryColors[$article->category_id % count($categoryColors)] }}">
                             {{ $article->category->name }}
                         </span>
-                        <span class="text-xs text-gray-400">{{ $article->reading_time }} min de lecture</span>
+                        <span class="text-xs text-gray-400 dark:text-gray-500">{{ $article->reading_time }} min de lecture</span>
                     </div>
 
-                    <h2 class="text-lg font-semibold text-gray-900 mb-2">
-                        <a href="{{ route('articles.show', $article) }}" class="hover:text-indigo-600">
+                    <h2 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+                        <a href="{{ route('articles.show', $article) }}" class="hover:text-indigo-600 dark:hover:text-indigo-400">
                             {{ $article->title }}
                         </a>
                     </h2>
 
-                    <p class="text-sm text-gray-600 mb-4 leading-relaxed flex-grow">
+                    <p class="text-sm text-gray-600 dark:text-gray-400 mb-4 leading-relaxed flex-grow">
                         {{ $article->excerpt }}
                     </p>
 
-                    <div class="flex items-center justify-between mt-auto pt-2 border-t border-gray-100">
-                        <div class="text-xs text-gray-400">
-                            <span class="font-medium text-gray-600">{{ $article->user->name }}</span>
+                    <div class="flex items-center justify-between mt-auto pt-2 border-t border-gray-100 dark:border-gray-700">
+                        <div class="text-xs text-gray-400 dark:text-gray-500">
+                            <span class="font-medium text-gray-600 dark:text-gray-300">{{ $article->user->name }}</span>
                             <span class="mx-1">•</span>
                             {{ $article->published_at->format('d/m/Y') }}
                         </div>
-                        <a href="{{ route('articles.show', $article) }}" class="text-sm text-indigo-600 hover:text-indigo-700 font-medium">
+                        <a href="{{ route('articles.show', $article) }}" class="text-sm text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 font-medium">
                             Lire l'article &rarr;
                         </a>
                     </div>

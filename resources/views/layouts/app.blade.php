@@ -1,56 +1,43 @@
 <!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'Mon Blog Tech')</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gray-50 text-gray-800 min-h-screen flex flex-col">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="h-full">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <header class="bg-white border-b border-gray-200 shadow-sm sticky top-0 z-10">
-        <div class="max-w-5xl mx-auto px-4 py-4 flex items-center justify-between">
-            <a href="{{ route('home') }}" class="text-xl font-bold text-indigo-600 hover:text-indigo-700">
-                Mon Blog Tech
-            </a>
-            <nav class="flex items-center gap-4">
-                <a href="{{ route('articles.index') }}" class="text-sm text-gray-600 hover:text-indigo-600">
-                    Articles
-                </a>
-                @auth
-                    <a href="{{ route('dashboard.index') }}" class="text-sm text-gray-600 hover:text-indigo-600">
-                        Tableau de bord
-                    </a>
-                    <form method="POST" action="{{ route('logout') }}">
-                        @csrf
-                        <button type="submit" class="text-sm bg-indigo-600 text-white px-4 py-1.5 rounded hover:bg-indigo-700 transition">
-                            Déconnexion
-                        </button>
-                    </form>
-                @else
-                    <a href="{{ route('login') }}" class="text-sm bg-indigo-600 text-white px-4 py-1.5 rounded hover:bg-indigo-700 transition">
-                        Connexion
-                    </a>
-                @endauth
-            </nav>
-        </div>
-    </header>
+        <title>{{ config('app.name', 'Mon Blog') }} - @yield('title', 'Dashboard')</title>
 
-    <main class="flex-grow max-w-5xl mx-auto px-4 py-8 w-full">
-        @if(session('success'))
-            <div class="mb-6 bg-green-50 border border-green-200 text-green-800 px-4 py-3 rounded-lg">
-                {{ session('success') }}
-            </div>
-        @endif
+        <!-- Fonts -->
+        <link rel="preconnect" href="https://fonts.bunny.net">
+        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
-        @yield('content')
-    </main>
+        <!-- Scripts -->
+        @vite(['resources/css/app.css', 'resources/js/app.js'])
 
-    <footer class="bg-white border-t border-gray-200 mt-auto">
-        <div class="max-w-5xl mx-auto px-4 py-4 text-center text-sm text-gray-500">
-            &copy; {{ date('Y') }} Mon Blog Tech &mdash; Tous droits réservés.
-        </div>
-    </footer>
+        <!-- Apply dark mode before page renders to avoid flash -->
+        <script>
+            if (localStorage.getItem('theme') === 'dark' ||
+                (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.classList.add('dark');
+            }
+        </script>
+    </head>
+    <body class="font-sans antialiased bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 min-h-screen">
+        @include('layouts.navigation')
 
-</body>
+        <!-- Page Heading -->
+        @isset($header)
+            <header class="bg-white dark:bg-gray-800 shadow-sm border-b border-gray-200 dark:border-gray-700">
+                <div class="max-w-7xl mx-auto py-5 px-4 sm:px-6 lg:px-8">
+                    {{ $header }}
+                </div>
+            </header>
+        @endisset
+
+        <!-- Page Content -->
+        <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            {{ $slot ?? '' }}
+            @yield('content')
+        </main>
+    </body>
 </html>
