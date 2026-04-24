@@ -3,18 +3,6 @@
 @section('title', 'Articles')
 
 @section('content')
-@php
-$categoryColors = [
-    'bg-indigo-100 dark:bg-indigo-900/50 text-indigo-700 dark:text-indigo-300',
-    'bg-purple-100 dark:bg-purple-900/50 text-purple-700 dark:text-purple-300',
-    'bg-blue-100 dark:bg-blue-900/50 text-blue-700 dark:text-blue-300',
-    'bg-green-100 dark:bg-green-900/50 text-green-700 dark:text-green-300',
-    'bg-pink-100 dark:bg-pink-900/50 text-pink-700 dark:text-pink-300',
-    'bg-orange-100 dark:bg-orange-900/50 text-orange-700 dark:text-orange-300',
-    'bg-teal-100 dark:bg-teal-900/50 text-teal-700 dark:text-teal-300',
-    'bg-yellow-100 dark:bg-yellow-900/50 text-yellow-700 dark:text-yellow-300',
-];
-@endphp
     <div class="mb-8">
         <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-1">Articles</h1>
         <p class="text-gray-500 dark:text-gray-400">Découvrez mes articles techniques</p>
@@ -85,7 +73,7 @@ $categoryColors = [
             @foreach($articles as $article)
                 <article class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6 shadow-sm hover:shadow-md dark:hover:shadow-gray-900 transition flex flex-col">
                     <div class="flex items-center gap-2 mb-3">
-                        <span class="text-xs px-2 py-0.5 rounded-full font-medium {{ $categoryColors[$article->category_id % count($categoryColors)] }}">
+                        <span class="text-xs px-2 py-0.5 rounded-full font-medium bg-indigo-100 dark:bg-indigo-900/50 text-indigo-700 dark:text-indigo-300">
                             {{ $article->category->name }}
                         </span>
                         <span class="text-xs text-gray-400 dark:text-gray-500">{{ $article->reading_time }} min de lecture</span>
