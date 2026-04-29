@@ -15,11 +15,13 @@ class ArticleSeeder extends Seeder
         $user = User::first();
 
         if (!$user) {
-            $user = User::create([
-                'name' => 'Blogueur',
-                'email' => 'admin@blog.com',
-                'password' => bcrypt('password'),
-            ]);
+            $user = User::firstOrCreate(
+                ['email' => 'admin@blog.com'],
+                [
+                    'name' => 'Blogueur',
+                    'password' => bcrypt('password'),
+                ]
+            );
         }
 
         $articles = [
