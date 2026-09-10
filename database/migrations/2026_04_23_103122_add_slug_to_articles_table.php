@@ -8,6 +8,10 @@ return new class extends Migration
 {
     public function up(): void
     {
+        if (Schema::hasColumn('articles', 'slug')) {
+            return;
+        }
+
         Schema::table('articles', function (Blueprint $table) {
             $table->string('slug')->unique()->nullable()->after('user_id');
         });

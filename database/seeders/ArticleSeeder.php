@@ -78,6 +78,7 @@ class ArticleSeeder extends Seeder
             Article::firstOrCreate(
                 ['title' => $data['title']], // avoid duplicates
                 [
+                    'slug'         => Article::generateSlug($data['title']),
                     'content'      => $data['content'],
                     'status'       => $data['status'],
                     'category_id'  => $category->id,
