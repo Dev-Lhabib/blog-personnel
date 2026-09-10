@@ -25,7 +25,7 @@
     <body class="font-sans text-gray-900 dark:text-gray-100 antialiased bg-gray-100 dark:bg-gray-900 transition-colors duration-200">
 
         <!-- Header with brand + dark mode toggle -->
-        <div class="w-full flex items-center justify-between px-6 py-4 max-w-7xl mx-auto">
+        <div class="w-full flex items-center justify-between px-6 py-4">
             <a href="/" class="text-lg font-bold text-indigo-600 dark:text-indigo-400 tracking-tight">
                 Mon Blog
             </a>
