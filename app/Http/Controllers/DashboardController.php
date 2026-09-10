@@ -55,8 +55,6 @@ class DashboardController extends Controller
 
     public function edit(Article $article): View
     {
-        $this->authorizeArticle($article);
-
         $categories = Category::orderBy('name')->get();
 
         return view('dashboard.edit', compact('article', 'categories'));
@@ -64,8 +62,6 @@ class DashboardController extends Controller
 
     public function update(Request $request, Article $article): RedirectResponse
     {
-        $this->authorizeArticle($article);
-
         $data = $request->validate([
             'title'       => ['required', 'string', 'max:255'],
             'content'     => ['required', 'string'],
@@ -95,8 +91,6 @@ class DashboardController extends Controller
 
     public function destroy(Article $article): RedirectResponse
     {
-        $this->authorizeArticle($article);
-
         if ($article->image) {
             Storage::disk('public')->delete($article->image);
         }
@@ -105,12 +99,5 @@ class DashboardController extends Controller
 
         return redirect()->route('dashboard.index')
             ->with('success', 'Article supprimé.');
-    }
-
-    private function authorizeArticle(Article $article): void
-    {
-        if ($article->user_id !== Auth::id()) {
-            abort(403);
-        }
     }
 }
