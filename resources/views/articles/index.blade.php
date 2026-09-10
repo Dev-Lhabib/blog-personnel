@@ -23,7 +23,7 @@
     $excerptFor = function ($article) {
         if (!empty($article->excerpt)) return $article->excerpt;
         $plain = trim(preg_replace('/\s+/', ' ', strip_tags(str_replace(['##', '###', '**', '```', '> ', '- '], '', $article->content ?? ''))));
-        return \Illuminate\Support\Str::limit($plain, 150);
+        return \Illuminate\Support\Str::limit($plain, 220);
     };
     $isFiltered = request()->filled('search') || !empty($activeCategory);
     $featured = (!$isFiltered && $articles->currentPage() === 1 && $articles->count() > 0) ? $articles->first() : null;
@@ -38,19 +38,19 @@
             <div class="max-w-3xl animate-fade-up">
                 <span class="eyebrow">
                     <span class="h-1.5 w-1.5 rounded-full bg-indigo-500"></span>
-                    Blog technique en français
+                    Journal de bord numérique
                 </span>
                 <h1 class="font-display mt-5 text-4xl font-bold leading-[1.05] tracking-tight text-slate-900 sm:text-5xl lg:text-[3.4rem] dark:text-white">
-                    Des articles <span class="bg-gradient-to-r from-indigo-600 to-violet-500 bg-clip-text text-transparent">longs, concrets</span> et illustrés.
+                    Des idées pour <span class="bg-gradient-to-r from-teal-700 to-orange-500 bg-clip-text text-transparent">mieux créer</span> sur le web.
                 </h1>
                 <p class="mt-4 max-w-2xl text-[15.5px] leading-relaxed text-slate-500 sm:text-lg dark:text-slate-400">
-                    Laravel, PHP, JavaScript, DevOps et Freelance : des guides détaillés avec
-                    exemples de code, méthodes et retours d'expérience.
+                    Des récits, des méthodes et des guides qui vont au-delà du snippet rapide.
+                    Chaque article prend le temps de donner le contexte, les choix et les détails utiles.
                 </p>
                 <div class="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-slate-500 dark:text-slate-400">
                     <span class="inline-flex items-center gap-2">
                         <svg class="h-4 w-4 text-indigo-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.25v11.5m-7.5-7.5h15M5 5h14a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2z" opacity="0"/><path stroke-linecap="round" stroke-linejoin="round" d="M4 19.5A2.5 2.5 0 016.5 17H20V5a2 2 0 00-2-2H6a2 2 0 00-2 2v14.5zM4 19.5A2.5 2.5 0 006.5 22H20v-5"/></svg>
-                        <strong class="text-slate-800 dark:text-slate-100">{{ $totalPublished }}</strong>&nbsp;article(s)
+                        <strong class="text-slate-800 dark:text-slate-100">{{ $totalPublished }}</strong>&nbsp;article{{ $totalPublished > 1 ? 's' : '' }} publié{{ $totalPublished > 1 ? 's' : '' }}
                     </span>
                     <span class="inline-flex items-center gap-2">
                         <svg class="h-4 w-4 text-indigo-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M7 7h10v10H7zM4 4h13v13"/></svg>
@@ -156,7 +156,7 @@
                 <h2 class="font-display text-xl font-bold tracking-tight text-slate-900 dark:text-white">
                     {{ $isFiltered ? 'Résultats' : 'Derniers articles' }}
                 </h2>
-                <p class="text-sm text-slate-400">{{ $articles->total() }} article(s)</p>
+                <p class="text-sm text-slate-400">{{ $articles->total() }} article{{ $articles->total() > 1 ? 's' : '' }} publié{{ $articles->total() > 1 ? 's' : '' }}</p>
             </div>
 
             <div class="mt-5 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -175,7 +175,7 @@
                                     {{ $article->title }}
                                 </a>
                             </h3>
-                            <p class="clamp-2 mt-2 flex-grow text-sm leading-relaxed text-slate-500 dark:text-slate-400">
+                                <p class="clamp-3 mt-2 flex-grow text-sm leading-relaxed text-slate-500 dark:text-slate-400">
                                 {{ $excerptFor($article) }}
                             </p>
                             <div class="mt-4 flex items-center justify-between border-t border-slate-100 pt-4 dark:border-white/10">

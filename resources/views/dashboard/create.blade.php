@@ -11,7 +11,7 @@
         <div class="mt-4">
             <p class="eyebrow">Nouveau contenu</p>
             <h1 class="font-display mt-3 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl dark:text-white">Créer un article</h1>
-            <p class="mt-2 text-slate-500 dark:text-slate-400">Rédigez un guide long et illustré. Les champs marqués <span class="font-bold text-red-500">*</span> sont requis.</p>
+            <p class="mt-2 text-slate-500 dark:text-slate-400">Donnez du contexte, des exemples et une conclusion utile. Les champs marqués <span class="font-bold text-red-500">*</span> sont requis.</p>
         </div>
 
         <div class="card-blog mt-7 p-6 sm:p-9">
@@ -40,7 +40,7 @@
                         <label for="image" class="mb-1.5 block text-sm font-bold text-slate-700 dark:text-slate-200">Image de couverture</label>
                         <input type="file" id="image" name="image" accept="image/*" onchange="previewCover(this)"
                             class="w-full rounded-xl border border-dashed border-slate-300 bg-slate-50/50 px-3 py-2.5 text-sm file:mr-4 file:rounded-lg file:border-0 file:bg-indigo-600 file:px-4 file:py-2 file:text-sm file:font-bold file:text-white hover:file:bg-indigo-700 dark:border-white/15 dark:bg-white/5">
-                        <p class="mt-1 text-xs text-slate-400">JPG, PNG ou WebP — max 2 Mo. Sinon, une belle image Unsplash sera affichée automatiquement.</p>
+                        <p class="mt-1 text-xs text-slate-400">JPG, PNG ou WebP — max 2 Mo. Une image éditoriale est utilisée automatiquement si aucune couverture n'est fournie.</p>
                         @error('image')<p class="mt-1.5 text-xs font-medium text-red-600">{{ $message }}</p>@enderror
                         <img id="cover-preview" alt="" class="mt-3 hidden max-h-44 w-full rounded-xl border border-slate-200 object-cover dark:border-white/10">
                     </div>

@@ -7,43 +7,46 @@
     @apply scroll-smooth;
   }
   body {
-    @apply bg-[#f7f7fb] text-slate-900 antialiased dark:bg-[#0b0e1a] dark:text-slate-100;
+    @apply bg-[#f6f4ef] text-[#17211f] antialiased dark:bg-[#101917] dark:text-stone-100;
     font-feature-settings: "ss01", "cv11";
+    background-image: linear-gradient(rgb(23 33 31 / 0.025) 1px, transparent 1px), linear-gradient(90deg, rgb(23 33 31 / 0.025) 1px, transparent 1px);
+    background-size: 32px 32px;
   }
   ::selection {
-    @apply bg-indigo-600 text-white;
+    @apply bg-teal-700 text-white;
   }
 }
 
 @layer components {
   .container-blog {
-    @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+    @apply mx-auto w-full px-4 sm:px-6 lg:px-10 xl:px-14;
+    max-width: none !important;
   }
   .card-blog {
-    @apply rounded-2xl border border-slate-200/80 bg-white shadow-soft transition duration-300 dark:border-white/10 dark:bg-white/[0.04];
+    @apply rounded-[1.25rem] border border-stone-200/90 bg-[#fffdfa] shadow-soft transition duration-300 dark:border-white/10 dark:bg-white/[0.04];
   }
   .card-blog-hover {
-    @apply hover:-translate-y-1 hover:shadow-card hover:border-indigo-200 dark:hover:border-indigo-500/40;
+    @apply hover:-translate-y-1 hover:shadow-card hover:border-teal-300 dark:hover:border-teal-500/40;
   }
   .btn-primary {
-    @apply inline-flex items-center justify-center gap-2 rounded-xl bg-indigo-600 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-indigo-600/25 transition hover:bg-indigo-700 hover:shadow-indigo-600/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 active:scale-[0.98] dark:focus-visible:ring-offset-slate-900;
+    @apply inline-flex items-center justify-center gap-2 rounded-xl bg-teal-700 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-teal-700/20 transition hover:bg-teal-800 hover:shadow-teal-700/30 focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-600 focus-visible:ring-offset-2 active:scale-[0.98] dark:focus-visible:ring-offset-slate-900;
   }
   .btn-ghost {
     @apply inline-flex items-center justify-center gap-2 rounded-xl border border-slate-300 bg-white px-5 py-2.5 text-sm font-semibold text-slate-700 transition hover:border-slate-400 hover:bg-slate-50 active:scale-[0.98] dark:border-white/15 dark:bg-white/5 dark:text-slate-200 dark:hover:bg-white/10;
   }
   .input-blog {
-    @apply w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm text-slate-900 placeholder-slate-400 shadow-sm transition focus:border-indigo-500 focus:outline-none focus:ring-4 focus:ring-indigo-500/15 dark:border-white/10 dark:bg-white/5 dark:text-slate-100 dark:placeholder-slate-500 dark:focus:border-indigo-400;
+    @apply w-full rounded-xl border border-stone-300 bg-[#fffdfa] px-4 py-2.5 text-sm text-slate-900 placeholder-slate-400 shadow-sm transition focus:border-teal-600 focus:outline-none focus:ring-4 focus:ring-teal-600/15 dark:border-white/10 dark:bg-white/5 dark:text-slate-100 dark:placeholder-slate-500 dark:focus:border-teal-400;
   }
   .pill {
     @apply inline-flex items-center gap-1.5 rounded-full border px-3.5 py-1.5 text-[13px] font-medium transition;
   }
   .eyebrow {
-    @apply inline-flex items-center gap-2 rounded-full border border-indigo-200 bg-indigo-50 px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-indigo-700 dark:border-indigo-500/30 dark:bg-indigo-500/10 dark:text-indigo-300;
+    @apply inline-flex items-center gap-2 rounded-full border border-teal-200 bg-teal-50 px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-teal-800 dark:border-teal-500/30 dark:bg-teal-500/10 dark:text-teal-300;
   }
 
   /* Long-form article typography (no plugin needed) */
   .article-content {
-    @apply text-[17px] leading-[1.85] text-slate-700 dark:text-slate-300;
+    @apply max-w-[72ch] text-[17px] leading-[1.9] text-slate-700 dark:text-slate-300;
   }
   .article-content > p {
     @apply mb-6;
@@ -88,16 +91,31 @@
 }
 
 @layer utilities {
+  /* Keep the existing templates visually consistent with the new palette. */
+  .bg-indigo-600 { background-color: #0f766e !important; }
+  .bg-indigo-700 { background-color: #115e59 !important; }
+  .bg-indigo-50 { background-color: #f0fdfa !important; }
+  .text-indigo-600 { color: #0f766e !important; }
+  .text-indigo-700 { color: #115e59 !important; }
+  .text-indigo-500 { color: #0d9488 !important; }
+  .border-indigo-200 { border-color: #99f6e4 !important; }
+  .border-indigo-300 { border-color: #5eead4 !important; }
+  .shadow-indigo-600\/25 { --tw-shadow-color: rgb(15 118 110 / 0.25) !important; }
+  .from-indigo-600 { --tw-gradient-from: #0f766e var(--tw-gradient-from-position) !important; --tw-gradient-to: rgb(15 118 110 / 0) var(--tw-gradient-to-position) !important; }
+  .from-indigo-500 { --tw-gradient-from: #0d9488 var(--tw-gradient-from-position) !important; --tw-gradient-to: rgb(13 148 136 / 0) var(--tw-gradient-to-position) !important; }
+  .to-violet-500 { --tw-gradient-to: #ea580c var(--tw-gradient-to-position) !important; }
+  .to-violet-600 { --tw-gradient-to: #c2410c var(--tw-gradient-to-position) !important; }
+
   .hero-grid {
     background-image:
-      radial-gradient(ellipse 60% 50% at 15% 0%, rgb(99 102 241 / 0.14), transparent),
-      radial-gradient(ellipse 50% 45% at 90% 10%, rgb(168 85 247 / 0.12), transparent),
-      linear-gradient(to bottom, transparent, transparent);
+      radial-gradient(ellipse 55% 65% at 12% 0%, rgb(13 148 136 / 0.16), transparent),
+      radial-gradient(ellipse 45% 55% at 92% 5%, rgb(234 88 12 / 0.1), transparent),
+      linear-gradient(to bottom, rgb(255 253 250 / 0.82), transparent);
   }
   .dark .hero-grid {
     background-image:
-      radial-gradient(ellipse 60% 50% at 15% 0%, rgb(99 102 241 / 0.22), transparent),
-      radial-gradient(ellipse 50% 45% at 90% 10%, rgb(168 85 247 / 0.16), transparent);
+      radial-gradient(ellipse 55% 65% at 12% 0%, rgb(13 148 136 / 0.22), transparent),
+      radial-gradient(ellipse 45% 55% at 92% 5%, rgb(234 88 12 / 0.16), transparent);
   }
   .img-zoom img {
     @apply transition duration-700 ease-out;

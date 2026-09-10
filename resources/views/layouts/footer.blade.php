@@ -3,15 +3,14 @@
         <div class="grid gap-10 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
             <div>
                 <a href="{{ route('articles.index') }}" class="flex items-center gap-3">
-                    <span class="grid h-10 w-10 place-items-center rounded-2xl bg-gradient-to-br from-indigo-600 via-indigo-500 to-violet-500 text-lg font-black text-white shadow-lg shadow-indigo-600/30">M</span>
+                    <span class="grid h-10 w-10 place-items-center rounded-2xl bg-[#173f3a] text-lg font-black text-[#f6c453] shadow-lg shadow-teal-900/20">B</span>
                     <span class="leading-tight">
                         <span class="font-display block text-lg font-bold tracking-tight text-slate-900 dark:text-white">Mon Blog</span>
-                        <span class="block text-[11px] font-semibold uppercase tracking-[0.18em] text-indigo-600 dark:text-indigo-400">Tech &amp; Code</span>
+                        <span class="block text-[11px] font-semibold uppercase tracking-[0.18em] text-teal-700 dark:text-teal-400">Notes &amp; idées</span>
                     </span>
                 </a>
                 <p class="mt-4 max-w-sm text-sm leading-relaxed text-slate-500 dark:text-slate-400">
-                    Guides approfondis sur Laravel, PHP, JavaScript, DevOps et Freelance.
-                    Des articles longs, concrets et illustrés pour progresser durablement.
+                    Des articles qui prennent le temps d'expliquer les choix, les méthodes et les détails qui comptent.
                 </p>
                 <div class="mt-5 flex items-center gap-2">
                     <a href="#" aria-label="X" class="grid h-9 w-9 place-items-center rounded-xl border border-slate-200 text-slate-500 transition hover:border-indigo-300 hover:text-indigo-600 dark:border-white/10 dark:text-slate-400 dark:hover:text-indigo-300">

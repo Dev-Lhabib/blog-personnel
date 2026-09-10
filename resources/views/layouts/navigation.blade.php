@@ -4,12 +4,12 @@
             <!-- Brand -->
             <div class="flex items-center gap-10">
                 <a href="{{ route('articles.index') }}" class="group flex items-center gap-3">
-                    <span class="grid h-10 w-10 place-items-center rounded-2xl bg-gradient-to-br from-indigo-600 via-indigo-500 to-violet-500 text-lg font-black text-white shadow-lg shadow-indigo-600/30 transition group-hover:scale-105">
-                        M
+                    <span class="grid h-10 w-10 place-items-center rounded-2xl bg-[#173f3a] text-lg font-black text-[#f6c453] shadow-lg shadow-teal-900/20 transition group-hover:rotate-[-4deg] group-hover:scale-105">
+                        B
                     </span>
                     <span class="leading-tight">
                         <span class="font-display block text-[17px] font-bold tracking-tight text-slate-900 dark:text-white">Mon Blog</span>
-                        <span class="block text-[11px] font-semibold uppercase tracking-[0.18em] text-indigo-600 dark:text-indigo-400">Tech &amp; Code</span>
+                        <span class="block text-[11px] font-semibold uppercase tracking-[0.18em] text-teal-700 dark:text-teal-400">Notes &amp; idées</span>
                     </span>
                 </a>
 
@@ -29,13 +29,6 @@
 
             <!-- Right -->
             <div class="flex items-center gap-2 sm:gap-3">
-                <a href="{{ route('articles.index') }}#recherche"
-                   class="hidden items-center gap-2 rounded-xl border border-slate-200 bg-slate-50 px-3.5 py-2 text-[13px] text-slate-500 transition hover:border-indigo-300 hover:text-slate-700 md:flex dark:border-white/10 dark:bg-white/5 dark:text-slate-400 dark:hover:text-slate-200">
-                    <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35M17 10.5a6.5 6.5 0 11-13 0 6.5 6.5 0 0113 0z"/></svg>
-                    Rechercher…
-                    <kbd class="rounded-md border border-slate-300 bg-white px-1.5 text-[11px] font-bold dark:border-white/10 dark:bg-white/10">/</kbd>
-                </a>
-
                 <button onclick="toggleDarkMode()" aria-label="Basculer le thème"
                     class="grid h-10 w-10 place-items-center rounded-xl border border-slate-200 bg-white text-slate-500 transition hover:border-indigo-300 hover:text-indigo-600 dark:border-white/10 dark:bg-white/5 dark:text-slate-300 dark:hover:text-yellow-300">
                     <svg class="h-5 w-5 hidden dark:block" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707M17.657 17.657l-.707-.707M6.343 6.343l-.707-.707M12 8a4 4 0 100 8 4 4 0 000-8z"/></svg>
@@ -45,12 +38,13 @@
                 @guest
                     <a href="{{ route('login') }}" class="hidden rounded-xl px-4 py-2.5 text-sm font-semibold text-slate-600 transition hover:text-slate-900 sm:block dark:text-slate-300 dark:hover:text-white">Se connecter</a>
                     @if (Route::has('register'))
-                    <a href="{{ route('register') }}" class="btn-primary !px-4 !py-2.5">Créer un compte</a>
+                    <a href="{{ route('register') }}" class="btn-primary hidden !px-4 !py-2.5 lg:inline-flex">Créer un compte</a>
                     @endif
                 @endguest
 
                 @auth
-                <x-dropdown align="right" width="56">
+                <div class="hidden lg:block">
+                    <x-dropdown align="right" width="56">
                     <x-slot name="trigger">
                         <button class="flex items-center gap-2.5 rounded-xl border border-slate-200 bg-white py-1.5 pl-1.5 pr-3 transition hover:border-indigo-300 hover:shadow-soft dark:border-white/10 dark:bg-white/5">
                             <span class="grid h-8 w-8 place-items-center rounded-lg bg-gradient-to-br from-indigo-500 to-violet-500 text-xs font-black text-white">
@@ -75,7 +69,8 @@
                             </x-dropdown-link>
                         </form>
                     </x-slot>
-                </x-dropdown>
+                    </x-dropdown>
+                </div>
                 @endauth
 
                 <button @click="open = ! open" class="grid h-10 w-10 place-items-center rounded-xl border border-slate-200 text-slate-500 lg:hidden dark:border-white/10 dark:text-slate-300" aria-label="Menu">

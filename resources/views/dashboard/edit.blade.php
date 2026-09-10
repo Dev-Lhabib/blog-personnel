@@ -44,7 +44,7 @@
                         <label for="image" class="mb-1.5 block text-sm font-bold text-slate-700 dark:text-slate-200">{{ $article->image ? "Remplacer l'image" : 'Image de couverture' }}</label>
                         <input type="file" id="image" name="image" accept="image/*" onchange="previewCover(this)"
                             class="w-full rounded-xl border border-dashed border-slate-300 bg-slate-50/50 px-3 py-2.5 text-sm file:mr-4 file:rounded-lg file:border-0 file:bg-indigo-600 file:px-4 file:py-2 file:text-sm file:font-bold file:text-white hover:file:bg-indigo-700 dark:border-white/15 dark:bg-white/5">
-                        <p class="mt-1 text-xs text-slate-400">JPG, PNG ou WebP — max 2 Mo</p>
+                        <p class="mt-1 text-xs text-slate-400">JPG, PNG ou WebP — max 2 Mo. La couverture actuelle reste en place si vous n'en sélectionnez pas une nouvelle.</p>
                         @error('image')<p class="mt-1.5 text-xs font-medium text-red-600">{{ $message }}</p>@enderror
                         <img id="cover-preview" alt="" class="mt-3 hidden max-h-44 w-full rounded-xl border border-slate-200 object-cover dark:border-white/10">
                     </div>

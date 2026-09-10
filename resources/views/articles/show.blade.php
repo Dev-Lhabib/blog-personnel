@@ -20,7 +20,7 @@
 
     $standfirst = !empty($article->excerpt)
         ? $article->excerpt
-        : \Illuminate\Support\Str::limit(trim(preg_replace('/\s+/', ' ', strip_tags(str_replace(['##','###','**','```','> ','- '], '', $article->content)))), 180);
+        : \Illuminate\Support\Str::limit(trim(preg_replace('/\s+/', ' ', strip_tags(str_replace(['##','###','**','```','> ','- '], '', $article->content)))), 240);
 
     // Lightweight markdown-lite renderer (frontend only)
     $renderBody = function (string $text) {
@@ -135,7 +135,7 @@
             <h1 class="font-display mt-5 text-3xl font-bold leading-[1.12] tracking-tight text-slate-900 sm:text-[2.75rem] dark:text-white">
                 {{ $article->title }}
             </h1>
-            <p class="mt-4 max-w-2xl text-[16.5px] leading-relaxed text-slate-500 dark:text-slate-400">{{ $standfirst }}</p>
+                <p class="mt-4 max-w-3xl text-[17px] leading-relaxed text-slate-600 dark:text-slate-300">{{ $standfirst }}</p>
 
             <div class="mt-6 flex flex-wrap items-center justify-between gap-4">
                 <div class="flex items-center gap-3">

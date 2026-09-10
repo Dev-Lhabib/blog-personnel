@@ -13,8 +13,8 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                sans: ['Figtree', ...defaultTheme.fontFamily.sans],
-                display: ['Fraunces', 'Figtree', ...defaultTheme.fontFamily.serif],
+                sans: ['DM Sans', ...defaultTheme.fontFamily.sans],
+                display: ['Newsreader', 'DM Sans', ...defaultTheme.fontFamily.serif],
             },
             boxShadow: {
                 soft: '0 1px 2px rgb(16 24 40 / 0.04), 0 8px 24px -12px rgb(16 24 40 / 0.18)',
