@@ -12,7 +12,7 @@
         <p class="text-sm text-gray-500 dark:text-gray-400 mb-8 truncate">{{ $article->title }}</p>
 
         <div class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm p-8">
-            <form method="POST" action="{{ route('dashboard.articles.update', $article) }}">
+            <form method="POST" action="{{ route('dashboard.articles.update', $article) }}" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
 
@@ -58,6 +58,29 @@
                         @endforeach
                     </select>
                     @error('category_id')
+                        <p class="mt-1.5 text-xs text-red-600">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                {{-- Image --}}
+                <div class="mb-6">
+                    @if($article->image)
+                        <div class="mb-3">
+                            <img src="{{ asset('storage/' . $article->image) }}" alt="" class="w-full max-h-48 object-cover rounded-lg border border-gray-200 dark:border-gray-600">
+                        </div>
+                    @endif
+                    <label for="image" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                        {{ $article->image ? 'Remplacer l\'image' : 'Image de couverture' }}
+                    </label>
+                    <input
+                        type="file"
+                        id="image"
+                        name="image"
+                        accept="image/*"
+                        class="w-full border border-gray-300 dark:border-gray-600 rounded-lg px-3 py-2 text-sm bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-indigo-50 file:text-indigo-700 dark:file:bg-indigo-900/50 dark:file:text-indigo-300 hover:file:bg-indigo-100 dark:hover:file:bg-indigo-900/70"
+                    >
+                    <p class="mt-1 text-xs text-gray-400 dark:text-gray-500">JPG, PNG ou WebP — max 2 Mo</p>
+                    @error('image')
                         <p class="mt-1.5 text-xs text-red-600">{{ $message }}</p>
                     @enderror
                 </div>

@@ -11,7 +11,7 @@ class Article extends Model
 {
     protected $fillable = [
         'title', 'slug', 'excerpt', 'content',
-        'status', 'category_id', 'user_id', 'published_at',
+        'status', 'category_id', 'user_id', 'published_at', 'image',
     ];
 
     protected $casts = [

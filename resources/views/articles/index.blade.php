@@ -71,7 +71,13 @@
     @else
         <div class="grid gap-6 md:grid-cols-2">
             @foreach($articles as $article)
-                <article class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6 shadow-sm hover:shadow-md dark:hover:shadow-gray-900 transition flex flex-col">
+                <article class="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md dark:hover:shadow-gray-900 transition flex flex-col overflow-hidden">
+                    @if($article->image)
+                        <a href="{{ route('articles.show', $article) }}">
+                            <img src="{{ asset('storage/' . $article->image) }}" alt="" class="w-full h-48 object-cover">
+                        </a>
+                    @endif
+                    <div class="p-6 flex flex-col flex-grow">
                     <div class="flex items-center gap-2 mb-3">
                         <span class="text-xs px-2 py-0.5 rounded-full font-medium bg-indigo-100 dark:bg-indigo-900/50 text-indigo-700 dark:text-indigo-300">
                             {{ $article->category->name }}
@@ -98,6 +104,7 @@
                         <a href="{{ route('articles.show', $article) }}" class="text-sm text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 font-medium">
                             Lire l'article &rarr;
                         </a>
+                    </div>
                     </div>
                 </article>
             @endforeach

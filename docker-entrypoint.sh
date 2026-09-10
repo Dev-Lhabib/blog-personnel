@@ -21,4 +21,6 @@ if [ "$DB_CONNECTION" = "mysql" ]; then
     php artisan db:seed --force
 fi
 
+php artisan storage:link --force
+
 exec apache2-foreground

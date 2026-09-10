@@ -31,6 +31,14 @@
             </header>
 
             <div class="bg-white rounded-lg border border-gray-200 shadow-sm p-8 text-gray-700 leading-relaxed whitespace-pre-line text-[15px]">
+                @if($article->image)
+                    <img
+                        src="{{ asset('storage/' . $article->image) }}"
+                        alt=""
+                        class="w-full rounded-lg border border-gray-100 mb-8 object-cover max-h-96"
+                    >
+                @endif
+
                 {{ $article->content }}
             </div>
         </article>
