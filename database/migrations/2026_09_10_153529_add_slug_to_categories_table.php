@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('slug')->nullable()->after('name');
         });
 
-        DB::table('categories')->each(function ($category) {
+        DB::table('categories')->orderBy('id')->each(function ($category) {
             DB::table('categories')
                 ->where('id', $category->id)
                 ->update(['slug' => Str::slug($category->name)]);
