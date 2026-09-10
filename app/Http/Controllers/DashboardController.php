@@ -15,7 +15,6 @@ class DashboardController extends Controller
     public function index(): View
     {
         $articles = Article::with('category')
-            ->where('user_id', Auth::id())
             ->latest()
             ->get();
 
