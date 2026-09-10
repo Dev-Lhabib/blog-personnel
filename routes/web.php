@@ -5,6 +5,8 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ArticleController;
 use Illuminate\Support\Facades\Route;
 
+Route::get('/', fn () => redirect()->route('articles.index'));
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
