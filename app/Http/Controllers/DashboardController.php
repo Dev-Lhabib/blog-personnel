@@ -7,6 +7,7 @@ use App\Models\Category;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
 
@@ -15,7 +16,6 @@ class DashboardController extends Controller
     public function index(): View
     {
         $articles = Article::with('category')
-            ->where('user_id', Auth::id())
             ->latest()
             ->get();
 
@@ -36,11 +36,16 @@ class DashboardController extends Controller
             'content'     => ['required', 'string'],
             'category_id' => ['required', 'exists:categories,id'],
             'status'      => ['required', 'in:draft,published'],
+            'image'       => ['nullable', 'image', 'max:2048'],
         ]);
 
         $data['user_id']      = Auth::id();
         $data['slug']         = Str::slug($data['title']) . '-' . uniqid();
         $data['published_at'] = $data['status'] === 'published' ? now() : null;
+
+        if ($request->hasFile('image')) {
+            $data['image'] = $request->file('image')->store('articles', 'public');
+        }
 
         Article::create($data);
 
@@ -50,8 +55,6 @@ class DashboardController extends Controller
 
     public function edit(Article $article): View
     {
-        $this->authorizeArticle($article);
-
         $categories = Category::orderBy('name')->get();
 
         return view('dashboard.edit', compact('article', 'categories'));
@@ -59,19 +62,25 @@ class DashboardController extends Controller
 
     public function update(Request $request, Article $article): RedirectResponse
     {
-        $this->authorizeArticle($article);
-
         $data = $request->validate([
             'title'       => ['required', 'string', 'max:255'],
             'content'     => ['required', 'string'],
             'category_id' => ['required', 'exists:categories,id'],
             'status'      => ['required', 'in:draft,published'],
+            'image'       => ['nullable', 'image', 'max:2048'],
         ]);
 
         if ($data['status'] === 'published' && $article->status !== 'published') {
             $data['published_at'] = now();
         } elseif ($data['status'] === 'draft') {
             $data['published_at'] = null;
+        }
+
+        if ($request->hasFile('image')) {
+            if ($article->image) {
+                Storage::disk('public')->delete($article->image);
+            }
+            $data['image'] = $request->file('image')->store('articles', 'public');
         }
 
         $article->update($data);
@@ -82,18 +91,13 @@ class DashboardController extends Controller
 
     public function destroy(Article $article): RedirectResponse
     {
-        $this->authorizeArticle($article);
+        if ($article->image) {
+            Storage::disk('public')->delete($article->image);
+        }
 
         $article->delete();
 
         return redirect()->route('dashboard.index')
             ->with('success', 'Article supprimé.');
-    }
-
-    private function authorizeArticle(Article $article): void
-    {
-        if ($article->user_id !== Auth::id()) {
-            abort(403);
-        }
     }
 }
